@@ -1,0 +1,74 @@
+App #app-body.dark { 
+    background: #263238;
+    color: #aaaaaa;
+}
+
+App #app-body.dark nav {
+    background: #192227;
+    border-color: #1b1b1d;
+}
+
+App #app-body.dark ul li {
+    border-color: #1b1b1d;
+}
+
+App #app-body.dark .section-head {
+    background: #1a2328;
+}
+App #app-body.dark .section-head.open {
+    background: #141a1d;
+}
+App #app-body.dark .section-head h2 {
+    color: #aaaaaa;
+}
+
+App #app-body.dark input {
+    background: #171f22;
+    color: #dddddd;
+    border: none;
+}
+
+App #app-body.dark button:disabled,
+App #app-body.dark button[disabled]{
+  background: #5d5d5d;
+  color: #808080;
+}
+
+App #app-body.dark .sub-nav{ 
+  background: #1f2a31;
+  color: #aaaaaa;
+  border-right: 1px solid #1b1b1d;
+}
+App #app-body.dark .sub-nav li {
+  border-bottom: 1px solid #1b1b1d;
+  background: #1a2328;
+}
+App #app-body.dark .sub-nav li.open {
+  background: #141a1d;
+}
+App #app-body.dark .sub-nav li.heading {
+  background: none;
+}
+App #app-body.dark .sub-nav ul {
+  background: #1f2a31;
+}
+
+App #app-body.dark #content-container::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.1);
+}
+App #app-body.dark #content-container::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.3); 
+}
+
+App #tilebar.dark {
+  background: #192227;
+  border-color: #1b1b1d;
+  color: #aaaaaa;
+}
+App #tilebar.dark i:hover{
+  background: rgba(255,255,255,0.1);
+}
+App #tilebar.dark i.fa-times:hover {
+  background: #ff0000;
+  color: #ffffff;
+}

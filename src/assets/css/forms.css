@@ -1,0 +1,22 @@
+.form-group{
+    margin-bottom: 10px;
+}
+
+span.error{
+    color:red;
+}
+
+form input {
+    padding: 8px;
+    border-radius: 20px;
+    margin: 5px 0 10px 0;
+    border: 1px solid #dfdfdf;
+}
+
+form button {
+    border-radius: 20px;
+    padding: 10px 40px;
+    border: none;
+    background: #0f9bc7;
+    color: #ffffff;
+}

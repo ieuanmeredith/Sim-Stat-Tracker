@@ -1,0 +1,82 @@
+<ul *ngIf="this.rawData" class="road-nav sub-nav">
+    <li class="heading"><h1>Road Statistics</h1></li>
+    <li (click)="this.navigate('overview')"
+        [ngClass]="{'open': this.roadScope.overview}">
+        Races Overview
+    </li>
+    <li (click)="this.navigate('irating')" 
+        [ngClass]="{'open': this.roadScope.irating}">
+        iRating
+    </li>
+    <li (click)="this.navigate('incs')"
+        [ngClass]="{'open': this.roadScope.incs}">
+        Incidents
+    </li>
+    <li (click)="this.navigate('class')"
+        [ngClass]="{'open': this.roadScope.class}">
+        Results by Car Class
+    </li>
+    <li (click)="this.navigate('track')"
+        [ngClass]="{'open': this.roadScope.track}">
+        Results by Track
+    </li>
+</ul>
+
+<div class="road-content sub-content">
+    <small class="info" style="margin-bottom: 20px; display: block;">Stats shown exclude team events, rookie and unofficial sessions</small>
+    <div style="margin-bottom: 20px;">
+        <label for="date_from">From:</label>
+        <input [ngModel]="this.dateFrom | date:'yyyy-MM-dd'" 
+        (ngModelChange)="this.dateFrom = this.setDate($event)" id="date_from" type="date">
+        <label for="date_to">To:</label>
+        <input [ngModel]="this.dateTo | date:'yyyy-MM-dd'" 
+        (ngModelChange)="this.dateTo = this.setDate($event)" id="date_from" type="date">
+        <button class="filter" [disabled]="!this.dateTo || !this.dateFrom" (click)="this.filterByDate()">Go</button>
+    </div>
+    <hr/>
+    
+    <div *ngIf="this.queryData">
+        <div class="section-content" *ngIf="this.roadScope.overview">
+            <license-overview [data]="this.userRaceResults" />
+        </div>
+    </div>
+
+    <div *ngIf="this.queryData">
+        <div class="section-content" *ngIf="this.roadScope.irating">
+            <irating-line-chart [data]="this.queryData" name="iRating over time"/>
+        </div>
+    </div>
+
+    <div *ngIf="this.queryData">
+        <div class="section-content" *ngIf="this.roadScope.incs">
+            <incs-line-chart [data]="this.queryData" name="Incidents per race (solo races with more than 3 laps completed)"/>
+        </div>
+    </div>
+
+    <div *ngIf="this.userRaceResultsByClass">
+        <div class="section-content" *ngIf="this.roadScope.class">
+            <h2>Results by Car Class</h2>
+            <small class="info">Classes with less than 5 races completed are excluded</small>
+            <div>
+                <pos-class-radar-chart [classResults]="this.userRaceResultsByClass"/>
+            </div>
+
+            <div *ngFor="let class of userRaceResultsByClass">
+                <class-pos-line-chart *ngIf="class.rows.length >= 5" [classResults]="class" />
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="this.userRaceResultsByTrack">
+        <div class="section-content" *ngIf="this.roadScope.track">
+            <h2>Results by Track</h2>
+            <small class="info">Tracks with less than 5 races completed are excluded</small>
+            <div>
+                <pos-track-radar-chart [trackResults]="this.userRaceResultsByTrack" />
+            </div>
+            <div *ngFor="let track of userRaceResultsByTrack">
+                    <track-stats-line-chart *ngIf="track.results.length >= 5" [trackResults]="track" />
+            </div>
+        </div>
+    </div>
+</div>

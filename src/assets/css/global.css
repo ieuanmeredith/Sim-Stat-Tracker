@@ -1,0 +1,300 @@
+/* Fonts ---------------------------- */
+
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Source Code Pro'), local('SourceCodePro'), url(fonts/SourceCodePro-Regular.ttf) format('truetype');
+}
+
+
+/* Global ---------------------------- */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  font-family: 'BlinkMacSystemFont', 'Lucida Grande', 'Segoe UI', Ubuntu, Cantarell, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  overflow: hidden; /* Prevents rubber-band scrolling of the whole "page" */
+  color: var(--color);
+  background-color: #fff; /* To cover OSes with no default background color */
+}
+
+body, #app-body {
+  margin: 0;
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+}
+#app-body {
+  margin-top: 36px;
+  padding-bottom: 36px;
+}
+
+button {
+  border-radius: 20px;
+  padding: 10px 40px;
+  border: none;
+  background: #0f9bc7;
+  color: #ffffff;
+}
+button.filter {
+  border-radius: 9px;
+  padding: 6px 15px;
+  margin-left: 5px;
+}
+button.filter:hover {
+  cursor: pointer;
+}
+button:disabled,
+button[disabled]{
+  background: #dddddd;
+}
+
+app {
+  width: 100%;
+  height: 100%;
+}
+
+a {
+  color: var(--color-link);
+}
+
+h1,
+h2,
+h3 {
+  margin-top: 0;
+  line-height: 1.5;
+}
+
+h1 {
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+h2 {
+  font-size: 1.3em;
+  font-weight: normal;
+}
+
+h3 {
+  font-size: 1.12em;
+  font-weight: 600;
+}
+
+table {
+  width: 100%;
+  border-spacing: 0;
+  border: 1px solid hsla(0,0%,0%,.08);
+  border-width: 0 1px 1px 0;
+}
+th {
+  background-color: hsla(0,0%,50%,.06);
+}
+th,
+td {
+  text-align: center;
+  border: 1px solid hsla(0,0%,0%,.08);
+  border-width: 1px 0 0 1px;
+}
+
+svg {
+  fill: currentColor;
+}
+
+canvas {
+  margin-bottom: 30px;
+}
+
+input {
+  border: none;
+}
+input[type=date] {
+  padding: 4px 10px;
+  background: rgba(170,170,170,0.3);
+  margin-left: 10px;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background-color: rgba(170,170,170,0.3);
+  margin-bottom: 15px;
+}
+/* Code */
+
+code, kbd {
+  font-family: 'Source Code Pro', monospace;
+  border-radius: 4px;
+  padding: 1px 4px;
+  white-space: nowrap;
+  color: hsl(0,0%,36%);
+  background-color: hsla(0,0%,60%,.15);
+}
+
+pre, kbd {
+  font-size: 13px;
+  overflow: auto;
+  padding: 1em;
+  margin: 0;
+  border-radius: 4px;
+  border: 1px solid;
+  border-color: var(--color-border);
+  background-color: white;
+}
+
+pre code {
+  white-space: pre;
+}
+
+pre > .hljs {
+  color: var(--color-subtle);
+  background-color: white;
+}
+
+kbd {
+  padding: 0.5em;
+}
+
+i{
+  font-size: 1.5em;
+}
+
+.fa-sun, .fa-moon {
+  display: block !important;
+  margin-top: 15px;
+  text-align: center;
+}
+.fa-sun:hover, .fa-moon:hover{
+  cursor: pointer;
+}
+.fa-sun {
+  color: #f3e363;
+}
+.fa-moon {
+  color : #47585f;
+}
+
+#tilebar {
+  position: absolute;
+  height: 36px;
+  width: 100%;
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+  background: #f1f1f1;
+  border-bottom: 1px solid #dddddd;
+  text-align: right;
+}
+#tilebar i {
+  -webkit-app-region: no-drag;
+  font-size: 1em;
+  width: 40px;
+  height: 100%;
+  position: relative;
+  text-align: center;
+  padding: 11px 0 0 0;
+}
+#tilebar i:hover{
+  cursor: pointer;
+  background: rgba(0,0,0,0.1);
+}
+#tilebar i.fa-times:hover {
+  background: #ff0000;
+  color: #ffffff;
+}
+#tilebar .icon {
+  float: left;
+  padding: 10px 0 0 10px;
+}
+#tilebar .icon img {
+  width: 16px;
+}
+#tilebar .icon span {
+  position: relative;
+  top: -3px;
+  margin-left: 4px;
+}
+/* Utilities ---------------------------- */
+
+.u-avoid-clicks {
+  pointer-events: none;
+}
+
+/* Visually hidden, but will be read by screen readers */
+.u-visible-to-screen-reader {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.no-display {
+  display: none;
+}
+
+
+/* Content ------------------ */
+
+.content {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  visibility: hidden;
+  opacity: 0;
+}
+.content.is-shown {
+  visibility: visible;
+  opacity: 1;
+}
+
+.warning{
+  color: #ff6464;
+}
+
+.update-available{
+  background: #0f9bc7;
+  color: #fff;
+  font-weight: 600;
+  padding: 10px;
+}
+.update-available a {
+  text-decoration: underline;
+}
+.update-available a:hover {
+  cursor: pointer;
+}
+
+/* Hacks ---------------------------- */
+
+/* Fixes horizontal scrolling in code blocks on OS X El Cap (10.11.3), retina screen
+ *
+ * By adding an invisible outline property, it will force a repaint
+ * which enables the scrolling.
+ */
+
+.hljs:hover,
+.hljs:active {
+  outline: 1px solid transparent;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.1); 
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: rgba(0,0,0,0.3); 
+}

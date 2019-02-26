@@ -1,0 +1,108 @@
+<div id="tilebar" [ngClass]="{'dark': settings.darkTheme}">
+    <div class="icon">
+        <img src="./assets/app-icon/png/64.png" />
+        <span>Sim Stat Tracker</span>
+    </div>
+    <i (click)="minimize()" class="far fa-window-minimize"></i>
+    <i *ngIf="!settings.maximize" (click)="maximize()" class="far fa-window-maximize"></i>
+    <i *ngIf="settings.maximize" (click)="unmaximize()" class="far fa-window-restore"></i>
+    <i (click)="exit()" class="fas fa-times"></i>
+</div>
+<div id="app-body" [ngClass]="{'dark': settings.darkTheme}">
+    <nav>
+        <ul>
+            <li [ngClass]="{'selected': currentPage === 'sync'}" (click)="navigate('sync')"><i class="fas fa-cog"></li>
+            <li [ngClass]="{'selected': currentPage === 'road'}" (click)="navigate('road')">Road</li>
+            <li [ngClass]="{'selected': currentPage === 'oval'}" (click)="navigate('oval')">Oval</li>
+            <li [ngClass]="{'selected': currentPage === 'dirt-road'}" (click)="navigate('dirt-road')">Dirt Road</li>
+            <li [ngClass]="{'selected': currentPage === 'dirt-oval'}" (click)="navigate('dirt-oval')">Dirt Oval</li>
+        </ul>
+        <i *ngIf="settings.darkTheme" (click)="changeTheme()" class="fas fa-sun"></i>
+        <i *ngIf="!settings.darkTheme" (click)="changeTheme()" class="far fa-moon"></i>
+    </nav>
+    <div id="content-container" >
+        <div *ngIf="this.latestVersionNumber != '' && this.version !== this.latestVersionNumber" class="update-available">A new version is available. <a (click)="openDownload()">Download now</a></div>
+        <section class="sync-content" *ngIf="this.currentPage === ''">
+            <h1>Lets get started</h1>
+            <p>We need to sync your iRacing results data to begin.</p>
+            <p>Head to the data sync section by using the <i class="fas fa-cog"></i> in the menu.</p>
+        </section>
+        <section class="sync-content" *ngIf="this.currentPage === 'sync'">
+            <div *ngIf="this.authed">
+                <div *ngIf="syncStage === 'Fetching'">Step 1/2: Fetching results <img src="assets/app-icon/png/128.png" class="spinner" /></div>
+                <div *ngIf="syncStage === 'Syncing'">
+                    Step 2/2: Updating {{syncCompleted}} of {{syncTotal}} race sessions 
+                    <img src="assets/app-icon/png/128.png" class="spinner" />
+                </div>
+                <div *ngIf="syncStage === 'Fetching' || syncStage === 'Syncing'">
+                    <small>This may take a while, approximately 1 second for each each result in your history.</small>
+                    <br/><br/>
+                    <small>
+                        If you get an infinite spinner and no progress, restart the app and login again, progress will resume where it stopped.
+                        <br/>
+                        It's likely iRacing stopped responding to requests and we haven't found an elegant solution for this problem yet :(
+                    </small>
+                </div>
+                <div class="notif-info" *ngIf="syncStage === 'Complete'">Data sync complete</div>
+            </div>
+            <div *ngIf="syncStage === 'Complete' || !syncStage">
+                <h1>Login with your iRacing account to begin data sync</h1>
+                <p class="warning">
+                    This app is in no way associated or endorsed by iRacing. To retrieve your race results this app needs to request authorisation 
+                    on behalf of your account. By logging in here you are giving consent for this to take place.
+                </p>
+                <p class="warning">
+                    Your account details are not stored within this app or sent anywhere other than to iRacing to request authorisation. 
+                    However you still login here at your own risk. Sim Stat Tracker or associated parties hold no responsibility for the loss of your 
+                    account via any means.
+                </p>
+                <p class="warning">
+                    No one associated with Sim Stat Tracker or SimRacing247.com under any circumstances will ever ask you to provide your account details to them, 
+                    treat any such attempt as a phishing attack and act accordingly.
+                </p>
+                <p>You should only login to sync new results. You do not need to log in to access previously sync'd data.</p>
+                <form #f="ngForm" (ngSubmit)="iRacingLogin(f)" novalidate>
+                    <div class="form-group">
+                        <label for="username">Username</label><br/>
+                        <input name="username" ngModel required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label><br/>
+                        <input type="password" name="password" ngModel required>
+                        
+                        <div>
+                            <span *ngIf="f.error" class="error">{{f.error}}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button [disabled]="!f.valid || (syncTotal != syncCompleted)">Login</button>
+                    </div>
+                </form>
+                <div>
+                    <p> 
+                        It's our goal to provide this app free of charge and free of ads.<br/>
+                        To help us continue development please consider buying us a coffee via the button below.<br/>
+                        Thank you for your support! ☕
+                    </p>
+                    <img class="coffee" (click)="coffee()" src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" >
+                </div>
+            </div>
+        </section>
+
+        <section *ngIf="this.currentPage === 'road'">
+            <road-comp />
+        </section>
+
+        <section *ngIf="this.currentPage === 'oval'">
+            <oval-comp />
+        </section>
+
+        <section *ngIf="this.currentPage === 'dirt-road'">
+            <dirt-road-comp />
+        </section>
+
+        <section *ngIf="this.currentPage === 'dirt-oval'">
+            <dirt-oval-comp />
+        </section>
+    </div>
+</div>

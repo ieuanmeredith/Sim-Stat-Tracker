@@ -1,0 +1,25 @@
+<div *ngIf="toggleable" 
+class="section-head sub-head" 
+[ngClass]="{'open': this.display}"
+(click)="this.display = !this.display">
+    <h3>{{name}}</h3>
+</div>
+
+<div *ngIf="!toggleable">
+    <h3>{{name}}</h3>
+</div>
+    
+
+<div *ngIf="this.display">
+    <small class="info">Click a graph point to open full results</small>
+    <canvas baseChart width="600" height="300"
+        [datasets]="lineChartData"
+        [labels]="lineChartLabels"
+        [options]="lineChartOptions"
+        [legend]="lineChartLegend"
+        [colors]="lineChartColors"
+        [chartType]="lineChartType"
+        (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)">
+    </canvas>
+</div>

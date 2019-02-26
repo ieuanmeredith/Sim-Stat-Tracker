@@ -1,0 +1,88 @@
+{
+  "name": "sim-stat-tracker",
+  "productName": "Sim Stat Tracker",
+  "version": "1.1.0",
+  "description": "An iRacing statistics analyser",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "tslint src"
+  },
+  "keywords": [],
+  "author": "Sim Stat Tracker - simracing247.com",
+  "license": "All Rights Reserved",
+  "config": {
+    "forge": {
+      "make_targets": {
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [
+          "zip"
+        ],
+        "linux": [
+          "deb",
+          "rpm"
+        ]
+      },
+      "electronPackagerConfig": {
+        "packageManager": "npm",
+        "asar": true,
+        "icon": "src/assets/app-icon/win/app.ico"
+      },
+      "electronWinstallerConfig": {
+        "name": "Sim_Stat_Tracker",
+        "loadingGif": "src/assets/img/install.gif"
+      },
+      "electronInstallerDebian": {},
+      "electronInstallerRedhat": {},
+      "github_repository": {
+        "owner": "",
+        "name": ""
+      },
+      "windowsStoreConfig": {
+        "packageName": "Sim_Stat_Tracker",
+        "name": "Sim Stat Tracker"
+      }
+    }
+  },
+  "dependencies": {
+    "@angular/common": "^2.4.10",
+    "@angular/compiler": "^2.4.10",
+    "@angular/core": "^2.4.10",
+    "@angular/forms": "^2.4.10",
+    "@angular/platform-browser": "^2.4.10",
+    "@angular/platform-browser-dynamic": "^2.4.10",
+    "@types/angular": "^1.6.51",
+    "@types/lowdb": "^1.0.6",
+    "chart.js": "^2.7.3",
+    "chartjs-plugin-trendline": "0.0.4",
+    "electron": "^3.0.9",
+    "electron-compile": "^6.4.3",
+    "electron-devtools-installer": "^2.2.4",
+    "electron-squirrel-startup": "^1.0.0",
+    "jquery": "^3.3.1",
+    "lodash": "^4.17.11",
+    "lowdb": "^1.0.0",
+    "moment": "^2.23.0",
+    "ng2-charts": "^1.6.0",
+    "reflect-metadata": "^0.1.12",
+    "request-promise": "^4.2.2",
+    "tslib": "^1.9.3",
+    "zone.js": "^0.7.8"
+  },
+  "devDependencies": {
+    "@types/request-promise": "^4.1.42",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "electron-forge": "^5.2.4",
+    "electron-prebuilt-compile": "3.0.6",
+    "tslint": "^5.11.0",
+    "typescript": "^2.1.6",
+    "typescript-tslint-plugin": "^0.3.0"
+  }
+}

@@ -1,0 +1,26 @@
+<div>
+    <b>iRating:</b> {{irating}}
+</div>
+<br/>
+<div>
+    <h3>Races Overview</h3>
+    <b>Total races :</b> {{totalRaces}} &nbsp;&nbsp;
+    <b>Races finished:</b> <span class="info">{{racesCompleted}}</span> &nbsp;&nbsp;
+    <b>Races DNF:</b> <span class="warning">{{racesDnf}}</span>
+</div>
+
+<div *ngIf="this.display">
+    <small class="info">Click a graph point to open full results</small>
+    <canvas baseChart width="600" height="300"
+        [datasets]="lineChartData"
+        [labels]="lineChartLabels"
+        [options]="lineChartOptions"
+        [legend]="lineChartLegend"
+        [colors]="lineChartColors"
+        [chartType]="lineChartType"
+        (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)">
+    </canvas>
+</div>
+
+<hr />

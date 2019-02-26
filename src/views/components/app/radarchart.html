@@ -1,0 +1,24 @@
+<div *ngIf="toggleable" 
+class="section-head sub-head" 
+[ngClass]="{'open': this.display}"
+(click)="this.display = !this.display">
+    <h3>{{name}}</h3>
+</div>
+
+<div *ngIf="!toggleable">
+    <h3>{{name}}</h3>
+</div>
+    
+
+<div *ngIf="this.display">
+    <canvas baseChart width="600" height="300"
+        [datasets]="radarChartData"
+        [labels]="radarChartLabels"
+        [options]="radarChartOptions"
+        [legend]="radarChartLegend"
+        [colors]="radarChartColors"
+        [chartType]="radarChartType"
+        (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)">
+    </canvas>
+</div>
