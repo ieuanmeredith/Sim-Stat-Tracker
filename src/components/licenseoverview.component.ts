@@ -61,6 +61,9 @@ export class LicenseOverviewComponent implements OnInit {
   public ngOnInit(): void {
     console.log("linechart component initialized");
 
+    if (!this.data) {
+      return;
+    }
     this.irating = this.data[this.data.length - 1].result.newirating;
     this.totalRaces = this.data.length;
 

@@ -1,5 +1,9 @@
 <ul *ngIf="this.rawData" class="road-nav sub-nav">
     <li class="heading"><h1>Dirt Road Statistics</h1></li>
+    <li (click)="this.navigate('overview')"
+        [ngClass]="{'open': this.roadScope.overview}">
+        Summary
+    </li>
     <li (click)="this.navigate('irating')" 
         [ngClass]="{'open': this.roadScope.irating}">
         iRating
@@ -26,7 +30,6 @@
 
 <div class="road-content sub-content">
     <small class="info" style="margin-bottom: 20px; display: block;">Stats shown exclude team events, rookie and unofficial sessions</small>
-    
     <div>
         <label for="date_from">From:</label>
         <input [ngModel]="this.dateFrom | date:'yyyy-MM-dd'" 
@@ -35,6 +38,14 @@
         <input [ngModel]="this.dateTo | date:'yyyy-MM-dd'" 
         (ngModelChange)="this.dateTo = this.setDate($event)" id="date_from" type="date">
         <button class="filter" [disabled]="!this.dateTo || !this.dateFrom" (click)="this.filterByDate()">Go</button>
+    </div>
+
+    <hr/>
+    
+    <div *ngIf="this.queryData && this.userRaceResults">
+        <div class="section-content" *ngIf="this.roadScope.overview">
+            <license-overview [data]="this.userRaceResults" />
+        </div>
     </div>
     
     <div *ngIf="this.queryData">

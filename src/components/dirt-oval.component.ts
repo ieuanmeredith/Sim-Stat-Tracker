@@ -42,7 +42,7 @@ export class DirtOvalComponent implements OnInit {
   public ngOnInit(): void {
     console.log("road component initialized");
 
-    if (!this.db.get("sessions").value()) {
+    if (this.db.get("sessions").value().length === 0) {
       return;
     }
 

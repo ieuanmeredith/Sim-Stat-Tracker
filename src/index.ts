@@ -333,6 +333,11 @@ ipcMain.on("begin-data-sync", (event: any, arg: any) => {
                 if (sessionresponse.statusCode === 200)  {
                   const sessiondata = JSON.parse(sessionresponse.body);
 
+                  sessiondata.rows = sessiondata.rows.filter(
+                    (row: any) => row.custid.toString() === custId.toString() &&
+                                  row.simsestypename === "Race"
+                  );
+
                   db.get("sessions")
                   .push({customer_id: custId, id: sessiondata.subsessionid, session: sessiondata})
                   .write();
