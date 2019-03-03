@@ -1,7 +1,18 @@
 <div>
-    <b>iRating:</b> {{irating}}
+    <h2><b>Current iRating:</b> <b class="warning">{{irating}}</b></h2>
 </div>
-<br/>
+<hr/>
+<div><h2><b>Seasonal breakdown</b></h2></div>
+<div>
+    <div *ngFor="let season of seasonSummary">
+        <h3 class="info">{{season.season}}</h3>
+        <span >iRating change: </span><span class="warning">{{season.iRatingChange}}</span>  |  
+        <span >Races started:</span><span class="warning"> {{season.racesStarted}}</span>  |  
+        <span >iRating per race:</span><span class="warning"> {{season.iRatingPerRace}}</span>
+        <hr/>
+    </div>
+</div>
+<div><h2><b>Career races summary</b></h2></div>
 <div>
     <b>Total races :</b> {{totalRaces}} &nbsp;&nbsp;
     <b>Races finished:</b> <span class="info">{{racesCompleted}}</span> &nbsp;&nbsp;

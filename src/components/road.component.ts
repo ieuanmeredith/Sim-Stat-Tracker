@@ -144,7 +144,7 @@ export class RoadComponent implements OnInit {
           && rawData[i].session.rows[j].simsestypename === "Race"
           && rawData[i].session.max_team_drivers === 1
           && rawData[i].session.rows[j].newirating > 0) {
-            results.push({sessionId: rawData[i].id, result: rawData[i].session.rows[j], subsessionId: rawData[i].session.subsessionid});
+            results.push({sessionId: rawData[i].id, result: rawData[i].session.rows[j], subsessionId: rawData[i].session.subsessionid, season: rawData[i].session.season_shortname});
           }
       }
     }

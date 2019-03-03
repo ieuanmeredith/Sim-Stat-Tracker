@@ -4,6 +4,7 @@ import { Component, OnInit } from "@angular/core";
 import { IRow } from "../classes/models/session";
 import moment = require("moment");
 import { shell } from "electron";
+import _ = require("lodash");
 
 @Component({
   selector: "license-overview",
@@ -11,7 +12,7 @@ import { shell } from "electron";
 })
 export class LicenseOverviewComponent implements OnInit {
   @Input()
-  public data: Array<{sessionId: any, result: IRow, subsessionId: any}>;
+  public data: Array<{sessionId: any, result: IRow, subsessionId: any, season: string}>;
 
   public irating: number;
   public totalRaces: number;
@@ -58,6 +59,8 @@ export class LicenseOverviewComponent implements OnInit {
   public display = true;
   public toggleable = false;
 
+  public seasonSummary: object[] = [];
+
   public ngOnInit(): void {
     console.log("linechart component initialized");
 
@@ -66,6 +69,22 @@ export class LicenseOverviewComponent implements OnInit {
     }
     this.irating = this.data[this.data.length - 1].result.newirating;
     this.totalRaces = this.data.length;
+
+    const seasons = _(this.data)
+      .groupBy(x => x.season)
+      .map((value, key) => ({season: decodeURIComponent(key.split("+").join(" ")), rows: value}))
+      .value();
+
+    for (let i = 0; i < seasons.length; i++) {
+      const seasonSummaryObject = {
+        season: seasons[i].season,
+        iRatingChange: seasons[i].rows[seasons[i].rows.length - 1].result.newirating - seasons[i].rows[0].result.oldirating,
+        racesStarted: seasons[i].rows.length,
+        iRatingPerRace: ((seasons[i].rows[seasons[i].rows.length - 1].result.newirating - seasons[i].rows[0].result.oldirating) / seasons[i].rows.length).toFixed(0)
+      };
+
+      this.seasonSummary.push(seasonSummaryObject);
+    }
 
     let dnfRecord: number[] = [];
     let compRecord: number[] = [];
