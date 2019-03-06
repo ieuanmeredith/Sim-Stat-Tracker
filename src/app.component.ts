@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
   private currentPage: string = "";
   private settingsProvider: SettingsProvider = new SettingsProvider();
   private latestVersionNumber: string = "";
-  private readonly version: string = "1.1.0";
+  private readonly version: string = "1.1.1";
 
   // database setup
   private adapter = new FileSync("db.json");

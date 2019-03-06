@@ -178,8 +178,10 @@ ipcMain.on("minimize", () => {
 
 ipcMain.on("iracing-login", (event: any, arg: any) => {
   // create login request
+  const username = encodeURIComponent(arg[0]);
+  const password = encodeURIComponent(arg[1]);
   let request =
-    rp.post(`https://members.iracing.com/membersite/Login?username=${arg[0]}&password=${arg[1]}`,
+    rp.post(`https://members.iracing.com/membersite/Login?username=${username}&password=${password}`,
       {
         timeout: 5000,
         simple: false,
