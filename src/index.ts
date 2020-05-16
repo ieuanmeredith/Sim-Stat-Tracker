@@ -181,7 +181,7 @@ ipcMain.on("iracing-login", (event: any, arg: any) => {
   const username = encodeURIComponent(arg[0]);
   const password = encodeURIComponent(arg[1]);
   let request =
-    rp.post(`https://members.iracing.com/membersite/Login?username=${username}&password=${password}`,
+    rp.post(`https://members.iracing.com/download/Login?username=${username}&password=${password}`,
       {
         timeout: 5000,
         simple: false,
@@ -250,20 +250,21 @@ ipcMain.on("get-cust-id", (event: any, arg: any) => {
 ipcMain.on("begin-data-sync", (event: any, arg: any) => {
   // 1st Jan 2008
   const startDate: Date = new Date(1199113200000);
-  const numberOfYearsToGet = (new Date().getFullYear()) - (startDate.getFullYear());
+  // const numberOfYearsToGet = (new Date().getFullYear()) - (startDate.getFullYear());
   let data: object[] = [];
-  let yearsRetrieved: number = 0;
+  // let yearsRetrieved: number = 0;
 
   // get results by year to avoid timeout for members with large numbers of races.
-  for (let i = 0; i <= numberOfYearsToGet; i++) {
-    const deltaStartDate = new Date(startDate);
-    deltaStartDate.setFullYear(deltaStartDate.getFullYear() + i);
+  // for (let i = 0; i <= numberOfYearsToGet; i++) {
 
-    const deltaEndDate = new Date(deltaStartDate);
-    deltaEndDate.setFullYear(deltaEndDate.getFullYear() + 1);
+  // const deltaStartDate = new Date(startDate);
+  // deltaStartDate.setFullYear(deltaStartDate.getFullYear() + i);
 
-    const options = {
-      uri: `http://members.iracing.com/memberstats/member/GetResults?custid=${arg[0]}&showraces=1&showquals=0&showtts=0&showops=0&showofficial=1&showunofficial=0&showrookie=0&showclassd=1&showclassc=1&showclassb=1&showclassa=1&showpro=1&showprowc=1&lowerbound=0&upperbound=250000&sort=start_time&order=desc&format=json&category%5B%5D=1&category%5B%5D=2&category%5B%5D=3&category%5B%5D=4&starttime_low=${deltaStartDate.getTime()}&starttime_high=${deltaEndDate.getTime()}`,
+  // const deltaEndDate = new Date(deltaStartDate);
+  // deltaEndDate.setFullYear(deltaEndDate.getFullYear() + 1);
+
+  const options = {
+      uri: `https://members.iracing.com/memberstats/member/GetResults?custid=${arg[0]}&category=2&showraces=1&showofficial=1&starttime_low=${startDate.getTime()}&starttime_high=${new Date().getTime()}&showrookie=0&showclassd=1&showclassc=1&showclassb=1&showclassa=1&showpro=1&showprowc=1&lowerbound=1&upperbound=25000&sort=start_time&order=desc&format=json`,
       headers: {
           Cookie: `${authcookie};`
       },
@@ -271,21 +272,21 @@ ipcMain.on("begin-data-sync", (event: any, arg: any) => {
       resolveWithFullResponse: true
     };
 
-    const resultsRequest = rp.get(options);
+  const resultsRequest = rp.get(options);
 
-    setTimeout(function() {
-      resultsRequest.then((response: any) => {
+  // setTimeout(function() {
+  resultsRequest.then((response: any) => {
         const resultsData: object = JSON.parse(response.body).d.r;
         if (resultsData) {
           data = data.concat(resultsData);
         }
 
-        yearsRetrieved += 1;
+        // yearsRetrieved += 1;
+        // if (yearsRetrieved > numberOfYearsToGet) {
 
-        if (yearsRetrieved > numberOfYearsToGet) {
-          const sessionsToSync: Array<{id: string, customer_id: number}> = [];
+        const sessionsToSync: Array<{id: string, customer_id: number}> = [];
 
-          for (let j = 0; j < data.length; j++) {
+        for (let j = 0; j < data.length; j++) {
             const sessionId = db.get("sessionIds")
               .find({ id: data[j]["41"], customer_id: custId})
               .value();
@@ -297,8 +298,8 @@ ipcMain.on("begin-data-sync", (event: any, arg: any) => {
           }
 
           // create delta array of results not yet sync'd
-          const sessionIds = db.get("sessionIds").value();
-          for (let j = 0; j < sessionIds.length; j++) {
+        const sessionIds = db.get("sessionIds").value();
+        for (let j = 0; j < sessionIds.length; j++) {
             const sessionId = db.get("sessions")
             .find({customer_id: custId, id: sessionIds[j].id})
             .value();
@@ -308,9 +309,9 @@ ipcMain.on("begin-data-sync", (event: any, arg: any) => {
             }
           }
 
-          event.sender.send("sync-total-reply", sessionsToSync.length);
-          let counter = 0;
-          for (let j = 0; j < sessionsToSync.length; j++) {
+        event.sender.send("sync-total-reply", sessionsToSync.length);
+        let counter = 0;
+        for (let j = 0; j < sessionsToSync.length; j++) {
             const sessionId = db.get("sessions")
             .find({customer_id: custId, id: sessionsToSync[j].id})
             .value();
@@ -359,8 +360,8 @@ ipcMain.on("begin-data-sync", (event: any, arg: any) => {
             }, (counter * 1000));
             counter += 1;
           }
-        }
+        // }
       });
-    }, 300);
-  }
+    // }, 5000 * (i + 1));
+  // }
 });
