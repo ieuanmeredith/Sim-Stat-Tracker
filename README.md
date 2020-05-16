@@ -1,7 +1,5 @@
 # Sim-Stat-Tracker
 
-# Since the introduction of a captcha to iRacing login in Jan 2020 this application is no longer able to function. I am trying to find an alternative solution but the app will not be supported until such a solution is found.
-
 This app is in no way associated or endorsed by iRacing.
 
 Your account details are not stored within this app or sent anywhere other than to iRacing to request authorisation. 
