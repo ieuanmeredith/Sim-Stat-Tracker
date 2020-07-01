@@ -181,7 +181,7 @@ ipcMain.on("iracing-login", (event: any, arg: any) => {
   const username = arg[0];
   const password = arg[1];
   let request =
-    rp.post("https://members.iracing.com/download/Login",
+    rp.post("redacted",
       {
         headers:
         { "cache-control": "no-cache",
