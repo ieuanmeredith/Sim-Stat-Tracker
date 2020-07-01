@@ -178,15 +178,19 @@ ipcMain.on("minimize", () => {
 
 ipcMain.on("iracing-login", (event: any, arg: any) => {
   // create login request
-  const username = encodeURIComponent(arg[0]);
-  const password = encodeURIComponent(arg[1]);
+  const username = arg[0];
+  const password = arg[1];
   let request =
-    rp.post(`https://members.iracing.com/download/Login?username=${username}&password=${password}`,
+    rp.post("https://members.iracing.com/download/Login",
       {
+        headers:
+        { "cache-control": "no-cache",
+          "content-type": "multipart/form-data;" },
+       formData:
+        { "username": username, "password": password },
         timeout: 5000,
         simple: false,
-        resolveWithFullResponse: true,
-        jar: true
+        resolveWithFullResponse: true
       });
 
   // attempt login and process cookies
