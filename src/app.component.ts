@@ -20,6 +20,7 @@ import { OvalComponent } from "./components/oval.component";
 import { DirtRoadComponent } from "./components/dirt-road.component";
 import { DirtOvalComponent } from "./components/dirt-oval.component";
 import { LicenseOverviewComponent } from "./components/licenseoverview.component";
+import { enc, SHA256 } from "crypto-js";
 
 @Component({
   selector: "App",
@@ -150,7 +151,9 @@ export class AppComponent implements OnInit {
   }
 
   public iRacingLogin(form: any) {
-    const response = ipcRenderer.sendSync("iracing-login", [form.value.username, form.value.password]);
+    const hashPassword = enc.Base64.stringify(SHA256(form.value.password + form.value.username.toLowerCase()));
+
+    const response = ipcRenderer.sendSync("iracing-login", [form.value.username, hashPassword]);
     console.log(response);
     if (!response) {
       // set error message that login failed

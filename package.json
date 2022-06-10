@@ -60,6 +60,7 @@
     "@types/lowdb": "^1.0.6",
     "chart.js": "^2.7.3",
     "chartjs-plugin-trendline": "0.0.4",
+    "crypto-js": "^4.1.1",
     "electron": "^3.0.9",
     "electron-compile": "^6.4.3",
     "electron-devtools-installer": "^2.2.4",
@@ -75,6 +76,7 @@
     "zone.js": "^0.7.8"
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.1.1",
     "@types/request-promise": "^4.1.42",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-preset-env": "^1.7.0",

@@ -361,7 +361,7 @@ ipcMain.on("begin-data-sync", (event: any, arg: any) => {
               .catch(err => {
                 console.log(err);
               });
-            }, (counter * 1000));
+            }, (counter * 500));
             counter += 1;
           }
         // }
