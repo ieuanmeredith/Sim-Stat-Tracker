@@ -58,7 +58,7 @@
     "@angular/platform-browser-dynamic": "^2.4.10",
     "@types/angular": "^1.6.51",
     "@types/lowdb": "^1.0.6",
-    "chart.js": "^2.7.3",
+    "chart.js": "^2.9.4",
     "chartjs-plugin-trendline": "0.0.4",
     "crypto-js": "^4.1.1",
     "electron": "^3.0.9",
