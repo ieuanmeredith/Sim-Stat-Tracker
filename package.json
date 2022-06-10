@@ -61,7 +61,7 @@
     "chart.js": "^2.7.3",
     "chartjs-plugin-trendline": "0.0.4",
     "crypto-js": "^4.1.1",
-    "electron": "^3.0.9",
+    "electron": "^13.6.6",
     "electron-compile": "^6.4.3",
     "electron-devtools-installer": "^2.2.4",
     "electron-squirrel-startup": "^1.0.0",
